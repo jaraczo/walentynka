@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Czy będziesz moją walentynką? ❤️</title>
 
 <style>
@@ -20,19 +20,12 @@ body {
 }
 
 .container {
-    position: relative;
     z-index: 2;
-    padding: 20px;
 }
 
 h1 {
     font-size: clamp(26px, 7vw, 48px);
-    margin-bottom: 30px;
-}
-
-.buttons {
-    position: relative;
-    height: 150px;
+    margin-bottom: 40px;
 }
 
 button {
@@ -41,27 +34,27 @@ button {
     border: none;
     border-radius: 40px;
     cursor: pointer;
-    position: absolute;
     transition: transform 0.2s;
 }
 
 #yesBtn {
     background: white;
     color: #ff4e8b;
-    left: 20%;
 }
 
 #noBtn {
     background: #ff1744;
     color: white;
-    left: 55%;
+    position: fixed; /* kluczowa zmiana */
+    top: 60%;
+    left: 60%;
 }
 
 .hearts {
-    position: absolute;
+    position: fixed;
     inset: 0;
-    z-index: 1;
     pointer-events: none;
+    z-index: 1;
 }
 
 .heart {
@@ -82,11 +75,10 @@ button {
 
 <div class="container">
     <h1>Czy będziesz moją walentynką? 💖</h1>
-    <div class="buttons">
-        <button id="yesBtn">TAK ❤️</button>
-        <button id="noBtn">NIE 💔</button>
-    </div>
+    <button id="yesBtn">TAK ❤️</button>
 </div>
+
+<button id="noBtn">NIE 💔</button>
 
 <script>
 const noBtn = document.getElementById("noBtn");
@@ -94,7 +86,6 @@ const yesBtn = document.getElementById("yesBtn");
 
 let scale = 1;
 
-// funkcja uciekającego przycisku (bez wychodzenia poza ekran)
 function moveButton() {
     const padding = 20;
     const maxX = window.innerWidth - noBtn.offsetWidth - padding;
@@ -111,22 +102,21 @@ function moveButton() {
 }
 
 // działa na telefonie i komputerze
-noBtn.addEventListener("pointerdown", moveButton);
 noBtn.addEventListener("pointerenter", moveButton);
+noBtn.addEventListener("pointerdown", moveButton);
 
-// kliknięcie TAK
 yesBtn.addEventListener("click", () => {
     document.body.innerHTML = `
         <div style="display:flex;justify-content:center;align-items:center;height:100dvh;background:#ff4e8b;color:white;text-align:center;padding:20px;">
             <h1 style="font-size:clamp(28px,9vw,60px);">
                 Wiedziałem 😌💍❤️<br>
-                
+                Teraz jesteś oficjalnie moja!
             </h1>
         </div>
     `;
 });
 
-// lekkie serduszka zoptymalizowane pod telefon
+// serduszka
 const heartsContainer = document.getElementById("hearts");
 
 function createHeart() {
